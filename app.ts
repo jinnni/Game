@@ -89,27 +89,14 @@ class Game {
     // this.ticker = new PIXI.Ticker();
     // this.ticker.add(() => {
         setInterval(()=>{
-            for (let index = 0; index < order.length; index++) {
                 let random = order[Math.floor(Math.random() * order.length)];
-                for (let index_ = 0; index_ < order[index].length; index_++) {
-                    for (let ind = 0; ind < position.length; ind++) {
-                        console.log();
-                        
-                        // if(order[index][index_] == 0){
-                        //     this.generateText(position[ind],yPosition);
-                        // }else{
-                        //     this.generateCoin(position[ind],yPosition);
-                        // }
+                for (let index = 0; index < random.length; index++) {
+                    if(random[index] == 0){
+                        this.generateText(position[index],yPosition);
+                    }else{
+                        this.generateCoin(position[index],yPosition);
                     }
                 }
-            }
-            // let random = position[Math.floor(Math.random() * position.length)];
-            
-            // for (let index = 0; index < position.length; index++) {
-            // if(random != position[index]){
-               
-            // }
-            // }
            
         },2000)
         
