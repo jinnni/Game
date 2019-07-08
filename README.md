@@ -1,5 +1,4 @@
 # Pixi.JS Tasks
-I made 2 tasks out of 3.
 
 ## Tasks Details
 The test is split in 3 parts on landing page. Performance will be checked on mobile (low/mid/high-end devices) plus desktop and should always be fullscreen.
