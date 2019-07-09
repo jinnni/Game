@@ -83,23 +83,23 @@ class Game {
     switch (key) {
         case 0:
             this.layer1.position.set(0,0);
-            this.layer1.height = this.height;
-            this.layer1.width = this.width;
+            this.layer1.height = this.height/2;
+            this.layer1.width = this.width/2;
             this.container.addChild(this.layer1);
             this.createCard();
             this.moveCard(this.sprite[this.cardIndex],this.cardIndex)
             break;
         case 1:
             this.layer2.position.set(0,0);
-            this.layer2.height = this.height;
-            this.layer2.width = this.width;
+            this.layer2.height = this.height/2;
+            this.layer2.width = this.width/2;
             this.container.addChild(this.layer2);
             this.createRandomMoney();
             break;
         case 2:
             this.layer3.position.set(0,0);
-            this.layer3.height = this.height;
-            this.layer3.width = this.width;
+            this.layer3.height = this.height/2;
+            this.layer3.width = this.width/2;
             this.container.addChild(this.layer3);
             this.fireworkAnimation();
             break;
@@ -166,6 +166,8 @@ class Game {
   }
   createCard(){
     let index, x, y;
+    this.layer1.position.x = this.width/3;
+    this.layer1.position.y = this.height/3;
     for (index = 0; index < this.totalCards; index++) {
         let sprite = new PIXI.Sprite(this.loader.resources["cards"].textures['card' + index + '.png']);
         sprite.scale = new PIXI.Point(this.scale, this.scale);
@@ -173,6 +175,7 @@ class Game {
         y = index*8;
         sprite.position.set(x, y);
         this.layer1.addChild(sprite);
+        
         this.sprite.push(sprite);
         this.spritePosition.push({x: (x + this.newXPosition), y: y, z: index})
     }
@@ -183,7 +186,7 @@ class Game {
   moveCard(sprite, index){
     this.app.ticker = new PIXI.Ticker();
     this.app.ticker.start();
-    this.app.ticker.speed = this.speed;
+    this.app.ticker.speed = this.speed/5;
     let newY = 0;
     let newX = 0;
     this.app.ticker.add((delta) => {
@@ -219,17 +222,21 @@ class Game {
     this.layer1.addChild(sprite);
   }
   fireworkAnimation(){
-    let textureArray = [];
-    for (let index = 0; index < 27; index++) {
-        const texture = PIXI.Texture.from('f'+index+'.png');
-        textureArray.push(texture);
-    }
-    let animate = new PIXI.AnimatedSprite(textureArray);
-    animate.position.x = 0;
-    animate.position.y = 0;
-    animate.animationSpeed = 0.3;
-    animate.play();
-    this.layer3.addChild(animate);
+    setInterval(()=>{
+        let textureArray = [];
+        let random = Math.floor(Math.random() * 6) + 1;
+        for (let index = 0; index < 81; index++) {
+            const texture = PIXI.Texture.from('f'+index+'.png');
+            textureArray.push(texture);
+        }
+        let animate = new PIXI.AnimatedSprite(textureArray);
+        animate.scale.set(random,random);
+        animate.position.x = this.width/random;
+        animate.position.y = this.height/random;
+        animate.animationSpeed = 0.5;
+        animate.play();
+        this.layer3.addChild(animate);
+    },2000);
   }
 }
 
